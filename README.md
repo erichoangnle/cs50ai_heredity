@@ -57,50 +57,15 @@ We can attempt to model all of these relationships by forming a Bayesian Network
 
 ![Heredity!](https://cs50.harvard.edu/ai/2020/projects/2/heredity/images/gene_network.png "Heredity")
 
-Each person in the family has a Gene random variable representing how many copies of a particular gene (e.g., the hearing impairment version of GJB2) a person has: a value that is 0, 1, or 2. Each person in the family also has a Trait random variable, which is yes or no depending on whether that person expresses a trait (e.g., hearing impairment) based on that gene. There’s an arrow from each person’s Gene variable to their Trait variable to encode the idea that a person’s genes affect the probability that they have a particular trait. Meanwhile, there’s also an arrow from both the mother and father’s Gene random variable to their child’s Gene random variable: the child’s genes are dependent on the genes of their parents.
+Each person in the family has a ```Gene``` random variable representing how many copies of a particular gene (e.g., the hearing impairment version of GJB2) a person has: a value that is 0, 1, or 2. Each person in the family also has a ```Trait``` random variable, which is ```yes``` or ```no``` depending on whether that person expresses a trait (e.g., hearing impairment) based on that gene. There’s an arrow from each person’s ```Gene``` variable to their ```Trait``` variable to encode the idea that a person’s genes affect the probability that they have a particular trait. Meanwhile, there’s also an arrow from both the mother and father’s ```Gene``` random variable to their child’s ```Gene``` random variable: the child’s genes are dependent on the genes of their parents.
 
 Your task in this project is to use this model to make inferences about a population. Given information about people, who their parents are, and whether they have a particular observable trait (e.g. hearing loss) caused by a given gene, your AI will infer the probability distribution for each person’s genes, as well as the probability distribution for whether any person will exhibit the trait in question.
 
 ## Specification
 
-#### joint_probability
+For full specification, go to:
 
-The joint_probability function should take as input a dictionary of people, along with data about who has how many copies of each of the genes, and who exhibits the trait. The function should return the joint probability of all of those events taking place.
-
- * The function accepts four values as input: people, one_gene, two_genes, and have_trait.
-    1. people is a dictionary of people as described in the “Understanding” section. The keys represent names, and the values are dictionaries that contain mother and father keys. You may assume that either mother and father are both blank (no parental information in the data set), or mother and father will both refer to other people in the people dictionary.
-    2. one_gene is a set of all people for whom we want to compute the probability that they have one copy of the gene.
-    3. two_genes is a set of all people for whom we want to compute the probability that they have two copies of the gene.
-    4. have_trait is a set of all people for whom we want to compute the probability that they have the trait.
-    5. For any person not in one_gene or two_genes, we would like to calculate the probability that they have no copies of the gene; and for anyone not in have_trait, we would like to calculate the probability that they do not have the trait.
- * For example, if the family consists of Harry, James, and Lily, then calling this function where one_gene = {"Harry"}, two_genes = {"James"}, and trait = {"Harry", "James"} should calculate the probability that Lily has zero copies of the gene, Harry has one copy of the gene, James has two copies of the gene, Harry exhibits the trait, James exhibits the trait, and Lily does not exhibit the trait.
- * For anyone with no parents listed in the data set, use the probability distribution PROBS["gene"] to determine the probability that they have a particular number of the gene.
- * For anyone with parents in the data set, each parent will pass one of their two genes on to their child randomly, and there is a PROBS["mutation"] chance that it mutates (goes from being the gene to not being the gene, or vice versa).
- * Use the probability distribution PROBS["trait"] to compute the probability that a person does or does not have a particular trait.
- 
-#### update
-
-The update function adds a new joint distribution probability to the existing probability distributions in probabilities.
-
- * The function accepts five values as input: probabilities, one_gene, two_genes, have_trait, and p.
-    1. probabilities is a dictionary of people as described in the “Understanding” section. Each person is mapped to a "gene" distribution and a "trait" distribution.
-    2. one_gene is a set of people with one copy of the gene in the current joint distribution.
-    3. two_genes is a set of people with two copies of the gene in the current joint distribution.
-    4. have_trait is a set of people with the trait in the current joint distribution.
-    5. p is the probability of the joint distribution.
- * For each person person in probabilities, the function should update the probabilities[person]["gene"] distribution and probabilities[person]["trait"] distribution by adding p to the appropriate value in each distribution. All other values should be left unchanged.
- * For example, if "Harry" were in both two_genes and in have_trait, then p would be added to probabilities["Harry"]["gene"][2] and to probabilities["Harry"]["trait"][True].
- * The function should not return any value: it just needs to update the probabilities dictionary.
-
-#### normalize
-
-The normalize function updates a dictionary of probabilities such that each probability distribution is normalized (i.e., sums to 1, with relative proportions the same).
-
- * The function accepts a single value: probabilities.
-    1. probabilities is a dictionary of people as described in the “Understanding” section. Each person is mapped to a "gene" distribution and a "trait" distribution.
- * For both of the distributions for each person in probabilities, this function should normalize that distribution so that the values in the distribution sum to 1, and the relative values in the distribution are the same.
- * For example, if probabilities["Harry"]["trait"][True] were equal to 0.1 and probabilities["Harry"]["trait"][False] were equal to 0.3, then your function should update the former value to be 0.25 and the latter value to be 0.75: the numbers now sum to 1, and the latter value is still three times larger than the former value.
- * The function should not return any value: it just needs to update the probabilities dictionary.
+https://cs50.harvard.edu/ai/2020/projects/2/heredity/
 
 ## Contact
 
